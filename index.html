@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OVOX | Software & Research</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Custom cursor elements -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <!-- Floating particles -->
+        <div class="particles" id="particles"></div>
+
+        <div class="logo-wrapper reveal">
+            <div class="logo-icon">
+                <div class="block">O</div>
+                <div class="block">V</div>
+                <div class="block">O</div>
+                <div class="block">X</div>
+            </div>
+        </div>
+        <p class="tagline reveal">Software & Research</p>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator" onclick="document.querySelector('.about').scrollIntoView({behavior:'smooth'})">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <div class="about reveal" id="about">
+        <span class="subheading">Who we are</span>
+        <h2 class="heading">A collective of young minds building tools, research, and systems that push things forward.</h2>
+        <div class="points">
+            <div class="point">
+                <span class="point-number">01</span>
+                <div class="point-content">
+                    <h3 class="point-title">The Founder</h3>
+                    <p class="point-desc">A vision for applied research turned into a company. OVOX started with one person asking what could be better — and deciding to build it.</p>
+                </div>
+            </div>
+            <div class="point">
+                <span class="point-number">02</span>
+                <div class="point-content">
+                    <h3 class="point-title">Our Mission</h3>
+                    <p class="point-desc">We bridge the gap between rigorous research and real-world software. Every project ships with intention, not hype.</p>
+                </div>
+            </div>
+            <div class="point">
+                <span class="point-number">03</span>
+                <div class="point-content">
+                    <h3 class="point-title">Building Something Real</h3>
+                    <p class="point-desc">No vaporware. No empty promises. Just a growing team of young adults committed to creating work that lasts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <div class="our-services reveal" id="services">
+        <span class="subheading">Our Services</span>
+        <div class="services-grid">
+            <div class="service">
+                <div class="service-title">Websites & Launches</div>
+                <p class="service-desc">Marketing sites that convert. Fast, clean, built to perform.</p>
+                <div class="badges">
+                    <span class="badge">Launch-ready</span>
+                    <span class="badge">SEO</span>
+                    <span class="badge">Easy updates</span>
+                </div>
+            </div>
+            <div class="service">
+                <div class="service-title">Apps & Platforms</div>
+                <p class="service-desc">Applications people actually need. From MVP to full-scale product.</p>
+                <div class="badges">
+                    <span class="badge">Launch-ready</span>
+                    <span class="badge">MVP to scale</span>
+                </div>
+            </div>
+            <div class="service">
+                <div class="service-title">AI Advisory & Training</div>
+                <p class="service-desc">Cut through the noise. Practical AI integration that moves the needle.</p>
+                <div class="badges">
+                    <span class="badge">AI training</span>
+                    <span class="badge">DeepSeek / ChatGPT workflows</span>
+                </div>
+            </div>
+            <div class="service">
+                <div class="service-title">Research Implementation</div>
+                <p class="service-desc">We bridge the gap between academic research and real-world application.</p>
+                <div class="badges">
+                    <span class="badge">R&D integration</span>
+                    <span class="badge">Emerging tech</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selected Work -->
+    <div class="selected-work reveal" id="projects">
+        <span class="subheading">Selected Work</span>
+        <h2 class="section-heading">Projects, research, and tools we've shipped.</h2>
+        <div class="work-grid">
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=Project+01" alt="Project screenshot">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">Web Platform</span>
+                        <span class="badge">Research-backed</span>
+                    </div>
+                    <h3 class="work-title">DataViz Explorer</h3>
+                    <p class="work-desc">An interactive platform for exploring complex datasets, built on published research in visual analytics.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Visit site ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=Research+Paper" alt="Research paper">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">Published</span>
+                        <span class="badge">ML</span>
+                    </div>
+                    <h3 class="work-title">Efficient Transformer Inference</h3>
+                    <p class="work-desc">A novel approach to reducing latency in large language models, published at NeurIPS 2025.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Read paper ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=Mobile+App" alt="Mobile app screenshot">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">Mobile</span>
+                        <span class="badge">Health Tech</span>
+                    </div>
+                    <h3 class="work-title">PulseCheck</h3>
+                    <p class="work-desc">A health monitoring app that uses on-device ML to track vitals — no cloud, no privacy trade-offs.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Visit site ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=OSS+Tool" alt="Open source tool">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">Open Source</span>
+                        <span class="badge">DevTools</span>
+                    </div>
+                    <h3 class="work-title">BuildKit</h3>
+                    <p class="work-desc">A lightweight CI/CD orchestration tool for small teams. 2k+ stars on GitHub.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Visit site ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=Research+02" alt="Research publication">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">Published</span>
+                        <span class="badge">Systems</span>
+                    </div>
+                    <h3 class="work-title">Fault-Tolerant Distributed Consensus</h3>
+                    <p class="work-desc">A practical implementation of a novel consensus algorithm with 40% fewer round trips.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Read paper ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="https://placehold.co/600x400/0a0a0a/333333?text=Platform" alt="Platform screenshot">
+                </div>
+                <div class="work-body">
+                    <div class="badges">
+                        <span class="badge">SaaS</span>
+                        <span class="badge">AI</span>
+                    </div>
+                    <h3 class="work-title">Inferno — AI Content Pipeline</h3>
+                    <p class="work-desc">End-to-end content ops platform with built-in AI editing, scheduling, and analytics.</p>
+                    <div class="work-actions">
+                        <a href="#" class="action-link">View details →</a>
+                        <a href="#" class="action-link external">Visit site ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact reveal" id="contact">
+        <span class="subheading">Get in touch</span>
+        <h2 class="section-heading">Let's build something together.</h2>
+        <p class="contact-intro">Whether you have a project in mind, want to collaborate on research, or just want to talk — reach out.</p>
+        <div class="contact-grid">
+            <div class="contact-form-wrapper">
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">What are you interested in?</label>
+                        <select id="type">
+                            <option value="">Select...</option>
+                            <option value="project">New project</option>
+                            <option value="research">Research collaboration</option>
+                            <option value="advisory">AI advisory</option>
+                            <option value="other">Something else</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="Tell us about your project or idea..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send message →</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <a href="mailto:hello@ovox.co" class="info-value">luvoxokiyana@gmail.com</a>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Remote-first. Eastern Cape, ZA</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Response time</span>
+                    <span class="info-value">Usually within 24 hours.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span>OVOX</span>
+                </div>
+                <p class="footer-tagline">Software & Research</p>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-heading">Work</h4>
+                <a href="#projects">Projects</a>
+                <a href="#projects">Research</a>
+                <a href="https://github.com/luvoxokiyana">Open source</a>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-heading">Services</h4>
+                <a href="#services">Websites</a>
+                <a href="#services">Apps & Platforms</a>
+                <a href="#services">AI Advisory</a>
+                <a href="#services">Research</a>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-heading">Company</h4>
+                <a href="#about">About</a>
+                <a href="#about">Blog</a>
+                <a href="#about">Careers</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-heading">Connect</h4>
+                <a href="https://github.com/luvoxokiyana">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter / X</a>
+                <a href="#">Email</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 OVOX. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
