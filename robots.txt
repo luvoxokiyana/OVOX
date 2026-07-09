@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://luvoxokiyana.github.io/ovox-website/sitemap.xml
