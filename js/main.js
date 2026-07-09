@@ -34,8 +34,8 @@ if (!isTouchDevice) {
     });
 } else {
     // Hide custom cursor on touch devices
-    cursor.style.display = 'none';
-    cursorFollower.style.display = 'none';
+    if (cursor) cursor.style.display = 'none';
+    if (cursorFollower) cursorFollower.style.display = 'none';
 }
 
 // ========== FLOATING PARTICLES ==========
@@ -111,7 +111,13 @@ if (scrollIndicator) {
     });
 }
 
-// ========== CONTACT FORM (Option 3 - No API Key in JS) ==========
+// ========== REMOVE ANY FILTER BUTTON LISTENERS (FIXES the toLowerCase error) ==========
+// This removes any existing filter button listeners that might be causing the error
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.replaceWith(btn.cloneNode(true));
+});
+
+// ========== CONTACT FORM (COMPLETELY REWRITTEN) ==========
 const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const formStatus = document.getElementById('formStatus');
@@ -121,6 +127,8 @@ if (contactForm) {
     document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(field => {
         field.addEventListener('blur', function () {
             const group = this.closest('.form-group');
+            if (!group) return;
+            
             if (this.hasAttribute('required') && !this.value.trim()) {
                 group.classList.add('error');
             } else if (this.type === 'email' && this.value.trim() && !isValidEmail(this.value)) {
@@ -132,51 +140,73 @@ if (contactForm) {
         
         field.addEventListener('input', function () {
             const group = this.closest('.form-group');
-            if (group.classList.contains('error') && this.value.trim()) {
+            if (group && group.classList.contains('error') && this.value.trim()) {
                 group.classList.remove('error');
             }
         });
     });
 
-    // Form submission
+    // Form submission - COMPLETELY REWRITTEN
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         
         // Clear previous errors
         document.querySelectorAll('.form-group').forEach(el => el.classList.remove('error'));
-        formStatus.style.display = 'none';
+        if (formStatus) {
+            formStatus.style.display = 'none';
+            formStatus.className = 'form-status';
+        }
         
-        // Validate form
-        let isValid = true;
+        // Get form values
         const name = document.getElementById('name');
         const email = document.getElementById('email');
         const message = document.getElementById('message');
+        const type = document.getElementById('type');
         
-        if (!name.value.trim()) {
-            name.closest('.form-group').classList.add('error');
+        // Validate
+        let isValid = true;
+        
+        if (!name || !name.value.trim()) {
+            if (name) name.closest('.form-group').classList.add('error');
             isValid = false;
         }
         
-        if (!email.value.trim() || !isValidEmail(email.value)) {
-            email.closest('.form-group').classList.add('error');
+        if (!email || !email.value.trim() || !isValidEmail(email.value)) {
+            if (email) email.closest('.form-group').classList.add('error');
             isValid = false;
         }
         
-        if (!message.value.trim()) {
-            message.closest('.form-group').classList.add('error');
+        if (!message || !message.value.trim()) {
+            if (message) message.closest('.form-group').classList.add('error');
             isValid = false;
         }
         
-        if (!isValid) return;
+        if (!isValid) {
+            if (formStatus) {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = ' Please fill in all required fields correctly.';
+                formStatus.style.display = 'block';
+            }
+            return;
+        }
         
         // Show loading state
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
+        if (submitBtn) {
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+        }
         
         try {
-            const formData = new FormData(this);
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('name', name.value.trim());
+            formData.append('email', email.value.trim());
+            formData.append('message', message.value.trim());
+            formData.append('interest', type ? type.value : '');
+            formData.append('_subject', 'New message from OVOX website');
             
-            const response = await fetch(this.action, {
+            // Send to Formspree
+            const response = await fetch('https://formspree.io/f/xykqqbay', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -186,28 +216,47 @@ if (contactForm) {
             
             if (response.ok) {
                 // Success
-                formStatus.className = 'form-status success';
-                formStatus.textContent = ' Message sent successfully! We\'ll get back to you soon.';
-                formStatus.style.display = 'block';
-                this.reset();
+                if (formStatus) {
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = ' Message sent successfully! We\'ll get back to you soon.';
+                    formStatus.style.display = 'block';
+                }
+                // Reset form
+                contactForm.reset();
             } else {
-                throw new Error('Form submission failed');
+                // Try to get error message from response
+                let errorMsg = 'Failed to send message. Please try again.';
+                try {
+                    const data = await response.json();
+                    if (data && data.error) {
+                        errorMsg = data.error;
+                    }
+                } catch (e) {
+                    // If response isn't JSON, use default message
+                }
+                throw new Error(errorMsg);
             }
         } catch (error) {
             // Error
-            formStatus.className = 'form-status error';
-            formStatus.textContent = ' Failed to send message. Please try again or email us directly.';
-            formStatus.style.display = 'block';
+            if (formStatus) {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'X ' + (error.message || 'Failed to send message. Please email us directly.');
+                formStatus.style.display = 'block';
+            }
             console.error('Form error:', error);
         } finally {
             // Reset button
-            submitBtn.classList.remove('loading');
-            submitBtn.disabled = false;
+            if (submitBtn) {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
             
             // Auto-hide status after 5 seconds
-            setTimeout(() => {
-                formStatus.style.display = 'none';
-            }, 5000);
+            if (formStatus) {
+                setTimeout(() => {
+                    formStatus.style.display = 'none';
+                }, 5000);
+            }
         }
     });
 }
@@ -222,7 +271,12 @@ async function fetchGithubProjects() {
     const username = 'luvoxokiyana';
     const grid = document.getElementById('github-projects');
 
-    //  ONLY show these repositories - Add your repo names here!
+    if (!grid) {
+        console.error('GitHub projects grid not found');
+        return;
+    }
+
+    // ONLY show these repositories - Add your repo names here!
     const includeRepos = [
         'single-page-restaurants-template-',
         // Add more repos as needed
@@ -257,6 +311,9 @@ async function fetchGithubProjects() {
             grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 3rem 0;">
                     <p style="color: #666;">No projects found. Check your includeRepos list.</p>
+                    <p style="color: #444; font-size: 0.85rem; margin-top: 0.5rem;">
+                        Current repos: ${includeRepos.join(', ')}
+                    </p>
                 </div>
             `;
             return;
@@ -298,8 +355,8 @@ async function fetchGithubProjects() {
                     <div class="work-body">
                         <div class="badges">
                             <span class="badge">${repo.language || 'Code'}</span>
-                            ${repo.stargazers_count > 0 ? `<span class="badge">⭐ ${formatNumber(repo.stargazers_count)}</span>` : ''}
-                            ${repo.homepage ? `<span class="badge"> Live</span>` : ''}
+                            ${repo.stargazers_count > 0 ? `<span class="badge"> ${formatNumber(repo.stargazers_count)}</span>` : ''}
+                            ${repo.homepage ? `<span class="badge">Live</span>` : ''}
                             ${repo.topics && repo.topics.length > 0 ? `<span class="badge">${repo.topics[0]}</span>` : ''}
                         </div>
                         <h3 class="work-title">${formatTitle(repo.name)}</h3>
@@ -317,7 +374,7 @@ async function fetchGithubProjects() {
         console.error('Error fetching repos:', error);
         grid.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 3rem 0;">
-                <p style="color: #dc2626;">Failed to load projects</p>
+                <p style="color: #dc2626;">⚠️ Failed to load projects</p>
                 <button onclick="fetchGithubProjects()" style="margin-top: 1rem; padding: 0.5rem 1.5rem; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">
                     Retry
                 </button>
@@ -364,4 +421,5 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchGithubProjects();
 });
 
-console.log('🚀 OVOX — Software & Research');
+console.log('OVOX — Software & Research');
+console.log('Built with intention, not hype.');

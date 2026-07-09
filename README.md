@@ -30,7 +30,7 @@ OVOX bridges the gap between rigorous research and real-world software. Every pr
 
 ## Live Site
 
-[Visit OVOX](https://luvoxokiyana.github.io/ovox-website/)
+[Visit OVOX](https://luvoxokiyana.github.io/ovox/)
 
 ## Connect
 
